@@ -1,11 +1,15 @@
 package com.can.rest.webservices.helloworldwebservices.User;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
 
+@JsonIgnoreProperties("birthDate")
+//@JsonFilter("UserFilter")
 public class User {
     private Integer id;
     @Size(min =2 , message = "Name should have at least 2 characters")

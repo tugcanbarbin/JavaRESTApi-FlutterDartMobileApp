@@ -1,10 +1,14 @@
 package com.can.rest.webservices.helloworldwebservices.User;
 
 import com.can.rest.webservices.helloworldwebservices.Exceptions.UserNotFoundException;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import jakarta.validation.Valid;
 import org.springframework.cglib.core.Local;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,8 +32,16 @@ public class UserController {
     public User getUser(@PathVariable int id)
     {
         User res =service.getUser(id);
+
         if(res == null)
             throw new UserNotFoundException("Id: " + id);
+
+//        MappingJacksonValue mapping = new MappingJacksonValue(res);
+//        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("name");
+//        FilterProvider filters = new SimpleFilterProvider().addFilter("UserFilter", filter);
+//        mapping.setFilters(filters);
+
+
         return res;
     }
 
